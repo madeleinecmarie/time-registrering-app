@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DisplayDOM } from "./components/Display";
+import Header from "./components/Header";
+import HeroImg from "./components/HeroImg";
 
 // Value from local storage
 const getDatafromLocalStorage = () => {
@@ -15,19 +17,32 @@ function App() {
   const [registrations, setRegistrations] = useState(getDatafromLocalStorage());
   const [hours, setHours] = useState("");
   const [comment, setComment] = useState("");
+  const [error, setError] = useState("");
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let timeObject = {
-      id: time,
-      hours: hours,
-      comment: comment,
-    };
+    if (hours === "") {
+      setError("Please enter your username.");
+    } else if (comment === "") {
+      setError("Please enter your password.");
+    } else {
+      // Submit the form
+    }
+
+     
+  let timeObject = {
+    id: time,
+    hours: hours,
+    comment: comment,
+  };
+
     setRegistrations([...registrations, timeObject]);
     setHours("");
     setComment("");
-  };
+  }
 
   // Id
   const date = new Date();
@@ -47,43 +62,43 @@ function App() {
   };
 
   // //Calculate total hours & alert
-  const alert = ("Bra jobba! Du har registrert over 100 timer");
+  const alert = "Bra jobba! Du har registrert over 100 timer";
   let sum = registrations.reduce(function (hour, total) {
     return hour + +total.hours;
   }, 0);
 
   console.log("Totalt: ", sum);
 
-
+  // Handle hours input, removing the decimal
   const handleInput = (e) => {
     const inputValue = e.target.value;
-    // only allow digits 0-9 and backspace key
     const regex = /^[0-9\b]+$/;
     if (inputValue === "" || regex.test(inputValue)) {
-      // input is a valid whole number, update state
       setHours(inputValue);
     }
   };
 
   return (
     <div className="container">
+      <div>
+        <Header />
+      </div>
       <div className="wrapper">
+        <div>
         <div className="headline--wrapper">
           <h1>Time registrering</h1>
         </div>
         <p>Her kan du som ansatt registere og holde oversikt over dine timer</p>
-      </div>
 
       <div className="form--container">
         <form onSubmit={handleSubmit}>
           <div className="form--input-wrapper">
             <label className="form--label">Antall timer</label>
             <input
+              required
               type="text"
               name="hours"
-              // required
               className="form--container__input"
-              // onChange={(e) => setHours(inputValue)}
               onChange={handleInput}
               value={hours}
             ></input>
@@ -91,16 +106,18 @@ function App() {
           <div className="form--input-wrapper">
             <label className="form--label">Kommentar</label>
             <input
+              required
               type="text"
               name="comment"
-              // required
               className="form--container__input"
               onChange={(e) => setComment(e.target.value)}
               value={comment}
             ></input>
           </div>
 
-          <button type="submit" className="btn">Registrer</button>
+          <button type="submit" className="btn">
+            Registrer
+          </button>
         </form>
       </div>
 
@@ -125,6 +142,11 @@ function App() {
         )}
         <p className="total--hours">Totalt registrerte timer: {sum}</p>
         {sum >= 100 && <h2>{alert}</h2>}
+      </div>
+      </div>
+      <div>
+        <HeroImg />
+      </div>
       </div>
     </div>
   );
