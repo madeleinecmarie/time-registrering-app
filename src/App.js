@@ -17,21 +17,9 @@ function App() {
   const [registrations, setRegistrations] = useState(getDatafromLocalStorage());
   const [hours, setHours] = useState("");
   const [comment, setComment] = useState("");
-  const [error, setError] = useState("");
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (hours === "") {
-      setError("Please enter your username.");
-    } else if (comment === "") {
-      setError("Please enter your password.");
-    } else {
-      // Submit the form
-    }
-
      
   let timeObject = {
     id: time,
@@ -109,6 +97,7 @@ function App() {
               required
               type="text"
               name="comment"
+              id="comment"
               className="form--container__input"
               onChange={(e) => setComment(e.target.value)}
               value={comment}

@@ -1,3 +1,9 @@
+Hei! 
+
+For å få applikasjonen opp og kjøre så må dere laste ned Zip-filen som dere finner i repositoryen, "extract all" på zip filen for og så åpne opp terminalen for å skrive inn kommando "npm start". 
+Når applikasjonen "runs" i utviklingsmodus kan linken til localhost:3000 åpnes opp. 
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
